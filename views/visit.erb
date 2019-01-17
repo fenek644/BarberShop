@@ -1,4 +1,4 @@
-<h2>Записаться</h2>
+<h2>Записаться </h2>
 <p>На этой странице вы сможете записаться к нам в Barber Shop</p>
 <br />
 
@@ -20,9 +20,9 @@
     <label>Выберите мастера</label>
     <select name="master" class="form-control" >
 <!--      <option></option>-->
-      <option>Walter White</option>
-      <option>Jessie Pickman</option>
-      <option>Gus Fring</option>
+      <option <%= @master == 'Walter White' ? 'selected' : '' %>>Walter White</option>
+      <option <%= @master == 'Jessie Pickman' ? 'selected' : '' %>>Jessie Pickman</option>
+      <option <%= @master == 'Gus Fring' ? 'selected' : '' %>>Gus Fring</option>
     </select>
   </div>
   <div class="form-group">
