@@ -5,9 +5,9 @@ require 'pony'
 require 'sqlite3'
 
 configure do
-  @db = SQLite3::Database.new 'barbershop.sql'
+  db = SQLite3::Database.new 'barbershop.sql'
 
-  @db.execute 'CREATE TABLE IF NOT EXISTS
+  db.execute 'CREATE TABLE IF NOT EXISTS
      `Users`
      (
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -69,13 +69,37 @@ post '/visit' do
   end
 
 
+  db = get_db
+  db.execute 'insert into Users
+     (
+        name,
+        phone,
+        datestamp,
+        master,
+        color
+        )
+      values
+      (
+        ?, ?, ?, ?, ?
+      )', [@user_name, @phone, @date_time, @master, @color]
+
+
+
+
   f = File.open './public/user.txt', 'a'
   f.puts "User: #{@user_name}, Phone: #{@phone}, Date and Time: #{@date_time} . Ваш мастер - #{@master}. "
   f.close
 
+
   erb :visit_mess
   # erb "OK #{@user_name}; вы записаны на #{@date_time}; ваш мастер #{@master}; выбранный цвет #{@color}"
 end
+
+
+def get_db
+  return  SQLite3::Database.new 'barbershop.sql'
+end
+
 
 post '/contacts' do
   @email = params[:email]
