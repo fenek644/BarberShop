@@ -45,6 +45,10 @@ get '/contacts_mess' do
   erb :contacts_mess
 end
 
+get '/showusers' do
+  erb "Hello World"
+end
+
 
 post '/visit' do
   @user_name = params[:username]
@@ -97,7 +101,10 @@ end
 
 
 def get_db
-  return  SQLite3::Database.new 'barbershop.sql'
+
+  db = SQLite3::Database.new 'barbershop.sql'
+  db.results_as_hash = true
+  return  db
 end
 
 
