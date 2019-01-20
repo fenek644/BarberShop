@@ -21,9 +21,13 @@
     <label>Выберите мастера</label>
     <select name="master" class="form-control" >
 <!--      <option></option>-->
-      <option <%= @master == 'Walter White' ? 'selected' : '' %>>Walter White</option>
-      <option <%= @master == 'Jessie Pickman' ? 'selected' : '' %>>Jessie Pickman</option>
-      <option <%= @master == 'Gus Fring' ? 'selected' : '' %>>Gus Fring</option>
+      <% @db.execute 'select * from Barbers' do |row| %>
+       <% name =  row['name'] %>
+      <option <%= @master == name ? 'selected' : '' %>><%= name %></option>
+        <% end %>
+<!--      <option <%#= @master == 'Jessie Pickman' ? 'selected' : '' %>>Jessie Pickman</option>-->
+<!--      <option <%#= @master == 'Jessie Pickman' ? 'selected' : '' %>>Jessie Pickman</option>-->
+<!--      <option <%#= @master == 'Gus Fring' ? 'selected' : '' %>>Gus Fring</option>-->
     </select>
   </div>
   <div class="form-group">
