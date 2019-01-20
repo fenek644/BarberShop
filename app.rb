@@ -18,6 +18,13 @@ configure do
         "color" text
      )'
 
+  db.execute 'CREATE TABLE IF NOT EXISTS
+     `Barbers`
+     (
+        "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+        "name" TEXT
+     )'
+
 end
 
 get '/' do
@@ -34,6 +41,7 @@ get '/about' do
 end
 
 get '/visit' do
+  @db = get_db
 	erb :visit
   end
 
@@ -46,11 +54,20 @@ get '/contacts_mess' do
 end
 
 get '/showusers' do
-  erb "Hello World"
+  @db = get_db
+  # db.execute 'select * from Users' do |row|
+  #   @mess = "#{row['name']} записался на #{row['datestamp']}"
+    # erb @mess #+ "\n" + "=======================" + "\n"
+    # puts '=========================================='
+
+  # erb "Hello World"
+  # end
+  erb :showusers
 end
 
 
 post '/visit' do
+  @db = get_db
   @user_name = params[:username]
   @phone = params[:phone]
   @date_time = params[:date_time]
@@ -73,8 +90,8 @@ post '/visit' do
   end
 
 
-  db = get_db
-  db.execute 'insert into Users
+
+  @db.execute 'insert into Users
      (
         name,
         phone,
