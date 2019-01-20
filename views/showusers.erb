@@ -5,6 +5,15 @@
 <%# end %>
 
 <table class="table">
+  <thead>
+    <tr>
+      <th>Имя</th>
+      <th>Телефон</th>
+      <th>Дата</th>
+      <th>Мвстер</th>
+      <th>Цвет</th>
+    </tr>
+  </thead>
   <% @db.execute 'select * from Users order by id desc' do |row| %>
     <tr>
       <td><%=row['name'] %></td>
