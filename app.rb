@@ -4,9 +4,15 @@ require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
 
-configure do
+def get_db
   db = SQLite3::Database.new 'barbershop.sql'
+  db.results_as_hash = true
+  return  db
+end
 
+configure do
+  # db = SQLite3::Database.new 'barbershop.sql'
+  db = get_db
   db.execute 'CREATE TABLE IF NOT EXISTS
      `Users`
      (
@@ -114,14 +120,6 @@ post '/visit' do
 
   erb :visit_mess
   # erb "OK #{@user_name}; вы записаны на #{@date_time}; ваш мастер #{@master}; выбранный цвет #{@color}"
-end
-
-
-def get_db
-
-  db = SQLite3::Database.new 'barbershop.sql'
-  db.results_as_hash = true
-  return  db
 end
 
 
