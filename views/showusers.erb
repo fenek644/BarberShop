@@ -1,0 +1,5 @@
+<% @db.execute 'select * from Users order by id desc' do |row| %>
+  <h5><%= row['name'] %> записана на <%= row['datestamp'] %> к мастеру <%= row['master'] %></h5>
+<h5> =========================================='</h5>
+  
+<% end %>
