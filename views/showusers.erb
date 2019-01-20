@@ -1,5 +1,16 @@
-<% @db.execute 'select * from Users order by id desc' do |row| %>
-  <h5><%= row['name'] %> записана на <%= row['datestamp'] %> к мастеру <%= row['master'] %></h5>
-<h5> =========================================='</h5>
+<%# @db.execute 'select * from Users order by id desc' do |row| %>
+<!--  <h5><%#= row['name'] %> записана на <%#= row['datestamp'] %> к мастеру <%#= row['master'] %></h5>-->
+<!--<h5> =========================================='</h5>-->
   
-<% end %>
+<%# end %>
+
+<table class="table">
+  <% @db.execute 'select * from Users order by id desc' do |row| %>
+    <tr>
+      <td><%=row['name'] %></td>
+      <td><%=row['phone'] %></td>
+      <td><%=row['datestamp'] %></td>
+      <td><%=row['master'] %></td>
+      <td style="background-color: <%=row['color'] %>"></td>
+    </tr>
+  <% end %>
