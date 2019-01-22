@@ -4,6 +4,20 @@ require 'sinatra/reloader'
 require 'pony'
 require 'sqlite3'
 
+def is_master_exist? db, name
+  db.execute('select * from Barbers where name=?', [name]).length > 0
+end
+
+def seed_db db, masters
+
+  masters.each do |master|
+    if !(is_master_exist? db, master)
+      db.execute 'insert into Barbers (name) values (?)', [master]
+    end
+  end
+
+end
+
 def get_db
   db = SQLite3::Database.new 'barbershop.sql'
   db.results_as_hash = true
@@ -30,6 +44,8 @@ configure do
         "id" INTEGER PRIMARY KEY AUTOINCREMENT,
         "name" TEXT
      )'
+
+  seed_db db, ['Jessie Pickman', 'Waler White', 'Glenn Grick', 'Steve Poplavsky']
 
 end
 
